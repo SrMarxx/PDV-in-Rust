@@ -1,10 +1,8 @@
 use std::io;
 
 fn main() {
-    let mut valtot = String :: new();
-    let mut valcom = String :: new();
-    let mut valite = String :: new();
-    let mut quant = String :: new();
+    let mut valtot: f64 = 0.0;
+    let mut quant:u8 = 0;
     let mut ext: bool;
     let mut extd: bool;
     let mut menu = String :: new();
@@ -21,7 +19,10 @@ fn main() {
         }
 
         else if convert_to_int(&menu) == 1 {
-            //entra na função 1
+
+            valtot = valtot + venda();
+            quant += quant;
+
             extd = true;
             while extd {
                 println!("Selecione a forma de pagamento: \n\n0. Cancelar. \n1. Cartão Crédito. \n2. Cartão Débto. \n3. Dinheiro. \n4. Pix. \n\nDigite: ");
@@ -68,6 +69,30 @@ fn main() {
         menu.clear();
     }
     
+}
+
+fn venda() -> f64 {
+    let mut ext: bool = true;
+    let mut menu = String::new();
+    let mut x = String::new();
+    let mut y = 0.0;
+    while ext {
+
+        io::stdin().read_line(&mut menu).expect("Fail");
+
+        if convert_to_int(&menu) == 0 {
+            y = 0.0;
+            ext = false;
+        }
+        else if convert_to_int(&menu) == 1 {
+            ext = false;
+        }
+        io::stdin().read_line(&mut x).expect("Erro ao ler o valor");
+        y = y + convert_to_float(&x);
+        x.clear();
+        menu.clear();
+    }
+    y
 }
 
 fn convert_to_int(n: &String) -> u8{
